@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  cdp_backend:
+    build: .
+    # platform: linux/amd64
+    container_name: cdp_backend
+    command: >
+      sh -c "pre-commit run --all-files && 
+            pytest --cov-report xml --cov-report html --cov=cdp_backend cdp_backend/tests &&
+            pytest cdp_backend/infrastructure/gcloud-functions/"
