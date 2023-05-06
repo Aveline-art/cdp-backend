@@ -184,10 +184,7 @@ texinfo_documents = [
         "cdp-backend Documentation",
         author,
         "cdp_backend",
-        (
-            "Data storage utilities and processing "
-            "pipelines used by CDP instances."
-        ),
+        ("Data storage utilities and processing " "pipelines used by CDP instances."),
     ),
 ]
 

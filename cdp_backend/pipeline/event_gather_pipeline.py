@@ -170,7 +170,10 @@ def create_event_gather_flow(
                 )
 
                 # Split audio and store
-                (audio_uri, local_audio_path,) = split_audio(
+                (
+                    audio_uri,
+                    local_audio_path,
+                ) = split_audio(
                     session_content_hash=session_content_hash,
                     tmp_video_filepath=tmp_video_filepath,
                     bucket=config.validated_gcs_bucket_name,
@@ -200,7 +203,10 @@ def create_event_gather_flow(
                 )
 
                 # Generate thumbnails
-                (static_thumbnail_uri, hover_thumbnail_uri,) = generate_thumbnails(
+                (
+                    static_thumbnail_uri,
+                    hover_thumbnail_uri,
+                ) = generate_thumbnails(
                     session_content_hash=session_content_hash,
                     tmp_video_path=tmp_video_filepath,
                     event=event,

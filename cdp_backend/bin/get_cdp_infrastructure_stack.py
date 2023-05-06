@@ -53,7 +53,6 @@ def _generate_indexes_json(outfile: Path) -> None:
 
     for model_cls in DATABASE_MODELS:
         for idx_field_set in model_cls._INDEXES:
-
             indexes.append(
                 {
                     "collectionGroup": model_cls.collection_name,

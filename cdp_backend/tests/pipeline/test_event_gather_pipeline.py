@@ -148,7 +148,10 @@ def test_generate_thumbnails(
         example_static_thumbnail_url,
         example_hover_thumbnail_url,
     ]
-    (static_thumbnail_url, hover_thumbnail_url,) = pipeline.generate_thumbnails.run(
+    (
+        static_thumbnail_url,
+        hover_thumbnail_url,
+    ) = pipeline.generate_thumbnails.run(
         session_content_hash=example_session_content_hash,
         tmp_video_path=str(example_video),
         event=event,
@@ -590,7 +593,6 @@ def test_convert_video_and_handle_host(
     mock_hash_file_contents.return_value = "abc123"
 
     with patch.object(Path, "rename", path_rename):
-
         (
             mp4_filepath,
             session_video_hosted_url,
