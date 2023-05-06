@@ -20,6 +20,7 @@ Ready to contribute? Here's how to set up `cdp-backend` for local development.
     ```bash
     git clone git@github.com:{your_name_here}/cdp-backend.git
     ```
+
 3. Install dependencies:
 
     - [graphviz](https://graphviz.org/download/)
@@ -71,6 +72,7 @@ For development commands we use [just](https://github.com/casey/just).
 ```bash
 just
 ```
+
 ```
 Available recipes:
     build                    # run lint and then run tests

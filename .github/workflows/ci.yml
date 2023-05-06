@@ -41,62 +41,62 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - uses: extractions/setup-just@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Packages (Ubuntu)
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt update
-        sudo apt-get install graphviz --fix-missing
-        sudo apt-get install ffmpeg --fix-missing
-    - name: Install Packages (Mac)
-      if: matrix.os == 'macOS-latest'
-      run: |
-        brew install graphviz
-        brew install ffmpeg
-    - name: Install Packages (Windows)
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install graphviz
-        choco install ffmpeg
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        just install
-    - name: Run Lib Tests
-      run: |
-        just test-library
-    - name: Run Func Tests
-      run: |
-        just test-functions
-    - name: Upload Codecov
-      uses: codecov/codecov-action@v3
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: extractions/setup-just@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Packages (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt update
+          sudo apt-get install graphviz --fix-missing
+          sudo apt-get install ffmpeg --fix-missing
+      - name: Install Packages (Mac)
+        if: matrix.os == 'macOS-latest'
+        run: |
+          brew install graphviz
+          brew install ffmpeg
+      - name: Install Packages (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install graphviz
+          choco install ffmpeg
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          just install
+      - name: Run Lib Tests
+        run: |
+          just test-library
+      - name: Run Func Tests
+        run: |
+          just test-functions
+      - name: Upload Codecov
+        uses: codecov/codecov-action@v3
 
   # Check linting, formating, types, etc.
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - uses: extractions/setup-just@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install .[lint]
-    - name: Lint
-      run: just lint
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - uses: extractions/setup-just@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .[lint]
+      - name: Lint
+        run: just lint
 
   # Publish to PyPI if test, lint, and manifest checks passed
   publish:
@@ -108,24 +108,24 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-    # Build and release cdp-backend to pypi
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build wheel
+      # Build and release cdp-backend to pypi
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build wheel
 
-    - name: Build Package
-      run: |
-        python -m build
+      - name: Build Package
+        run: |
+          python -m build
 
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        user: OpenMontana
-        password: ${{ secrets.PYPI_TOKEN }}
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: OpenMontana
+          password: ${{ secrets.PYPI_TOKEN }}
